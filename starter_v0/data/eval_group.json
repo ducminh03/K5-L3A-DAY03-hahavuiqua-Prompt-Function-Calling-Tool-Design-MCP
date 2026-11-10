@@ -2,6 +2,348 @@
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_handle_with_at_sign",
+      "phase": "B",
+      "suite": "group",
+      "query": "Xem 3 tweet gần nhất của @karpathy",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "handle_normalization",
+        "difficulty": "easy",
+        "what_it_tests": "User gõ handle có '@' → screenname phải bỏ '@', limit đúng 3."
+      }
+    },
+    {
+      "id": "G02_timeframe_month",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tin tức về Nvidia trong tháng này",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Nvidia",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "timeframe_month",
+        "difficulty": "easy",
+        "what_it_tests": "'tháng này' → timeframe=month (base chỉ test day/week); query giữ chủ đề cốt lõi."
+      }
+    },
+    {
+      "id": "G03_arxiv_latest_papers",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm các paper mới nhất trên arXiv về retrieval augmented generation",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "sort_by": "submittedDate"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "papers_routing",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi paper học thuật → papers (không phải lookup); 'mới nhất' → sort_by=submittedDate."
+      }
+    },
+    {
+      "id": "G04_policy_external_publishing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Theo quy định công ty, mình có được đăng kết quả nghiên cứu nội bộ lên mạng xã hội không?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "policy_area": "external_publishing"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "policy_routing",
+        "difficulty": "medium",
+        "what_it_tests": "Câu hỏi quy định nội bộ về đăng bài ra ngoài → policy với policy_area=external_publishing, không dùng lookup."
+      }
+    },
+    {
+      "id": "G05_out_of_scope_translation",
+      "phase": "B",
+      "suite": "group",
+      "query": "Dịch giúp mình câu này sang tiếng Anh: Hôm nay trời rất đẹp.",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu dịch thuật ngoài phạm vi research → không gọi tool (đặc biệt không gọi send/lookup)."
+      }
+    },
+    {
+      "id": "G06_send_after_confirmation",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin AI hôm nay lên Telegram giúp mình: 'OpenAI ra mắt model mới, Google cập nhật Gemini.'"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn có chắc muốn gửi bản tin này lên Telegram không?"
+        },
+        {
+          "role": "user",
+          "content": "Có, gửi đi"
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "send_after_confirm",
+        "difficulty": "medium",
+        "what_it_tests": "User đã xác nhận rõ ở lượt sau → gọi send với confirmed=true (không hỏi lại lần nữa)."
+      }
+    },
+    {
+      "id": "G07_send_cancelled",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin AI hôm nay lên Telegram giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Thôi khoan, đừng gửi nữa, để mình xem lại đã"
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "no_tool": true,
+        "behavior": "acknowledge_cancel"
+      },
+      "metadata": {
+        "skill": "send_cancel",
+        "difficulty": "medium",
+        "what_it_tests": "User huỷ việc gửi → không gọi send, không gọi tool nào, chỉ xác nhận đã huỷ."
+      }
+    },
+    {
+      "id": "G08_clarify_topic_then_top",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm giúp mình vài tweet đi"
+        },
+        {
+          "role": "user",
+          "content": "Về chủ đề Claude nhé"
+        },
+        {
+          "role": "user",
+          "content": "Lấy loại phổ biến nhất"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude",
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_fill_topic",
+        "difficulty": "medium",
+        "what_it_tests": "Chủ đề bổ sung ở lượt 2, sắp xếp ở lượt 3 → social_search query=Claude, search_type=Top (không dùng timeline)."
+      }
+    },
+    {
+      "id": "G09_switch_web_to_twitter",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tin tức về Anthropic tuần này có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Thôi, xem trên Twitter mọi người đang nói gì về Anthropic đi"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Anthropic"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_switch_tool_reverse",
+        "difficulty": "hard",
+        "what_it_tests": "Chiều ngược của M06: bỏ web chuyển sang Twitter → chỉ social_search, không gọi thừa lookup."
+      }
+    },
+    {
+      "id": "G10_change_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang tin cả tháng này đi, vẫn chủ đề AI"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_override_timeframe",
+        "difficulty": "medium",
+        "what_it_tests": "Lượt sau đổi timeframe → dùng timeframe mới nhất (month), giữ query và topic=news."
+      }
+    },
+    {
+      "id": "G11_wiki_concept_vi",
+      "phase": "B",
+      "suite": "group",
+      "query": "Transformer trong học máy là gì?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wiki",
+            "args": {
+              "lang": "vi"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "wiki_routing",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi khái niệm 'X là gì' bằng tiếng Việt → tool mới wiki (lang=vi), không dùng lookup."
+      }
+    },
+    {
+      "id": "G12_wiki_english_requested",
+      "phase": "B",
+      "suite": "group",
+      "query": "Wikipedia tiếng Anh viết gì về Retrieval-augmented generation?",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wiki",
+            "args": {
+              "lang": "en"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "wiki_lang_arg",
+        "difficulty": "medium",
+        "what_it_tests": "User yêu cầu Wikipedia tiếng Anh → wiki với lang=en."
+      }
+    },
+    {
+      "id": "G13_person_news_not_wiki",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tuần này Sam Altman có tin tức gì mới?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "wiki_vs_lookup_boundary",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi tin tức mới về một người → lookup (news, week), KHÔNG dùng wiki dù có tên người."
+      }
+    }
+  ]
 }
