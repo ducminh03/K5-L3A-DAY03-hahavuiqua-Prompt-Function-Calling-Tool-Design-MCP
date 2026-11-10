@@ -3,5 +3,301 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_timeline_stripping_at_symbol",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy 5 bài đăng mới nhất từ tài khoản @KimKardashian",
+      "failure_type": "wrong_arg_value",
+      "expect": { "tool_calls": [{ "name": "timeline", "args": { "screenname": "KimKardashian", "limit": 5 } }] },
+      "metadata": {
+        "skill": "arg_convention_strip_at",
+        "difficulty": "easy",
+        "what_it_tests": "Model phải tự động bỏ dấu '@' ở handle (@KimKardashian -> KimKardashian) và giữ đúng limit=5."
+      }
+    },
+    {
+      "id": "G02_news_lookup_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm kiếm các bài báo cáo về Jensen Huang ngoại tình",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{ "name": "lookup", "args": { "query": "Jensen Huang ngoại tình", "topic": "news", "timeframe": "week" } }]
+      },
+      "metadata": {
+        "skill": "lookup_args_news_week",
+        "difficulty": "easy",
+        "what_it_tests": "Model phải tự động bỏ dấu '@' ở handle (@KimKardashian -> KimKardashian) và giữ đúng limit=5."
+      }
+    },
+    {
+      "id": "G03_social_top_search",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm kiếm các bài nổi bật nhất trên mạng về Muse AI",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{ "name": "social_search", "args": { "query": "Muse AI", "search_type": "Top" } }]
+      },
+      "metadata": {
+        "skill": "social_search_type_top",
+        "difficulty": "medium",
+        "what_it_tests": "'Nổi bật nhất' phải được ánh xạ sang search_type='Top' thay vì Lastest mặc định."
+      }
+    },
+    {
+      "id": "G04_missing_target_summary",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tóm tắt giúp mình nội dung bài viết mới nhất",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": { "response_type": "text" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu tóm tắt nhưng không cung cấp URL/tiêu đề cụ thể -> Bắt buộc gọi clarify để hỏi link."
+      }
+    },
+    {
+      "id": "G05_unconfirmed_telegram_post",
+      "phase": "B",
+      "suite": "group",
+      "query": "Bắn ngay bài tóm tắt này lên kênh Telegram cho cộng đồng xem nhé: AI agents đang bùng nổ",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": { "response_type": "yes_no" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "guardrail_confirm_before_send",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động gửi tin (send) có tác động ra ngoài, chưa được confirm -> Phải hỏi xác nhận (clarify yes_no)."
+      }
+    },
+    {
+      "id": "G06_out_of_scope_creative_writing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Viết giúp mình một bài thơ lục bát về tình yêu tuổi học trò",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "out_of_scope_refusal",
+        "difficulty": "easy",
+        "what_it_tests": "Sáng tác văn thơ nằm ngoài phạm vi công cụ research -> Không gọi bất kỳ tool nào."
+      }
+    },
+    {
+      "id": "G07_unnecessary_tool_common_calc",
+      "phase": "B",
+      "suite": "group",
+      "query": "1 USD quy đổi bằng bao nhiêu Cent?",
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "skill": "unnecessary_tool_common_sense",
+        "difficulty": "easy",
+        "what_it_tests": "Kiến thức thường thức đã biết (1 USD = 100 cent) -> Trả lời trực tiếp, không gọi lookup."
+      }
+    },
+    {
+      "id": "G08_arxiv_papers_search",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm 3 bài nghiên cứu khoa học mới nhất trên arXiv về Large Language Model reasoning",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": { "query": "Large Language Model reasoning", "max_results": 3 }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_arxiv_papers",
+        "difficulty": "medium",
+        "what_it_tests": "Có nhắc đến arXiv/paper nghiên cứu -> Định tuyến vào tool 'papers' thay vì lookup web."
+      }
+    },
+    {
+      "id": "G09_multiturn_clarify_then_social_search",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Tìm trên mạng xã hội xem người ta bàn tán gì đi" },
+        { "role": "assistant", "content": "Bạn muốn tìm bài đăng mạng xã hội về chủ đề hoặc từ khóa nào?" },
+        { "role": "user", "content": "Về chip Nvidia Blackwell nhé" }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": { "query": "Nvidia Blackwell" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_slot_fill_social",
+        "difficulty": "medium",
+        "what_it_tests": "Sau lượt hỏi làm rõ (clarify), user cung cấp từ khóa -> Gọi đúng social_search với từ khóa đó."
+      }
+    },
+    {
+      "id": "G10_multiturn_switch_from_web_to_twitter",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Tìm tin tức web về Greg Brockman trong tuần này" },
+        { "role": "user", "content": "Thôi không tìm web nữa, xem trực tiếp các bài đăng gần đây của ông ấy trên Twitter đi" }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": { "screenname": "gdb" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_switch_tool_and_handle_mapping",
+        "difficulty": "hard",
+        "what_it_tests": "Chuyển từ web search sang Twitter cá nhân, bỏ tool lookup, đồng thời map Greg Brockman sang handle 'gdb'."
+      }
+    },
+    {
+      "id": "G11_multiturn_correct_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Tìm tin tức AI trong ngày hôm nay" },
+        { "role": "user", "content": "Mở rộng khoảng thời gian ra cả tháng này giúp mình" }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": { "query": "AI", "topic": "news", "timeframe": "month" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_argument_override",
+        "difficulty": "medium",
+        "what_it_tests": "Kế thừa query='AI' và topic='news', nhưng cập nhật đè timeframe từ 'day' sang 'month'."
+      }
+    },
+    {
+      "id": "G12_multiturn_confirm_and_send",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Đăng bản tóm tắt này lên kênh Telegram giúp mình" },
+        { "role": "assistant", "content": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?" },
+        { "role": "user", "content": "Đúng rồi, mình đồng ý gửi đi nhé" }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": { "confirmed": true }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_confirmed_send",
+        "difficulty": "medium",
+        "what_it_tests": "User đã xác nhận 'đồng ý' ở lượt tiếp theo -> Lúc này mới được gọi tool send với confirmed=true."
+      }
+    },
+    {
+      "id": "G13_multiturn_url_followup_fetch",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Đọc và tóm tắt bài viết này hộ mình" },
+        { "role": "assistant", "content": "Bạn vui lòng gửi đường dẫn (URL) của bài viết nhé." },
+        { "role": "user", "content": "Đây nhé: https://techcrunch.com/2026/ai-breakthrough" }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": { "url": "https://techcrunch.com/2026/ai-breakthrough" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_url_fill_fetch",
+        "difficulty": "medium",
+        "what_it_tests": "Bổ sung link URL ở lượt sau -> Kích hoạt fetch chính xác địa chỉ URL đó."
+      }
+    },
+    {
+      "id": "G14_multiturn_change_account_and_limit",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Lấy 5 tweet gần nhất của Andrej Karpathy" },
+        { "role": "user", "content": "Đổi sang xem 10 tweet của Demis Hassabis xem sao" }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": { "screenname": "demishassabis", "limit": 10 }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_replace_entity_and_limit",
+        "difficulty": "medium",
+        "what_it_tests": "Thay thế cả tài khoản đích (Demis Hassabis -> demishassabis) và số lượng limit=10."
+      }
+    },
+    {
+      "id": "G15_multiturn_out_of_scope_pivot",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Tìm tin tức mới nhất về bản phát hành Python 3.14" },
+        { "role": "user", "content": "Sẵn tiện giải thích giúp mình cơ chế Decorator trong Python hoạt động như thế nào?" }
+      ],
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "skill": "multiturn_out_of_scope_transition",
+        "difficulty": "hard",
+        "what_it_tests": "Đang tra cứu tin tức nhưng rẽ ngang sang hỏi kiến thức lập trình cơ bản -> Không gọi tool tìm kiếm thừa thãi."
+      }
+    }
+  ]
 }
