@@ -1,0 +1,1423 @@
+{
+  "run_id": "v3_B_group_gemini_20261110T145629117171",
+  "version": "v3",
+  "artifact_version": "v3+p52e49ed441da+t7e321000c31d",
+  "prompt_hash": "52e49ed441da6a4aeafec69a868a1ff9bf8f7b76dff6fcb07c4ebbcb354c47cf",
+  "tools_hash": "7e321000c31da99bddea23840ccd5a9cf1d909edf7725382631c4a28b7b154d6",
+  "phase": "B",
+  "suite": "group",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "system_prompt": "/Users/chris/Desktop/documents/uni/ai thuc chien/lab 3/K5-L3A-DAY03-hahavuiqua-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/chris/Desktop/documents/uni/ai thuc chien/lab 3/K5-L3A-DAY03-hahavuiqua-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "eval_cases": "data/eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-11-10T14:56:29",
+  "summary": {
+    "total_cases": 15,
+    "measured_cases": 15,
+    "provider_error_cases": 0,
+    "passed_cases": 15,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_timeline_stripping_at_symbol",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_convention_strip_at",
+        "difficulty": "easy",
+        "what_it_tests": "Model phải tự động bỏ dấu '@' ở handle (@KimKardashian -> KimKardashian) và giữ đúng limit=5."
+      },
+      "input": "Lấy 5 bài đăng mới nhất từ tài khoản @KimKardashian",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "KimKardashian",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "KimKardashian",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "KimKardashian",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "KimKardashian",
+            "items": [
+              {
+                "title": "LACMA https://t.co/syJIfnDCDb",
+                "summary": "LACMA https://t.co/syJIfnDCDb",
+                "url": "https://x.com/KimKardashian/status/2119898141445251153",
+                "source": "@KimKardashian",
+                "date": "Mon Nov 09 21:01:17 +0000 2026",
+                "metrics": {
+                  "favorites": 4700,
+                  "retweets": 301,
+                  "views": "508869"
+                }
+              },
+              {
+                "title": "Allura Grant by Soki Mak ",
+                "summary": "Allura Grant by Soki Mak \nALL’S FAIR SEASON 2 Now streaming on Hulu https://t.co/FkUPSDZtED",
+                "url": "https://x.com/KimKardashian/status/2118901917942452263",
+                "source": "@KimKardashian",
+                "date": "Sat Nov 07 03:02:39 +0000 2026",
+                "metrics": {
+                  "favorites": 13676,
+                  "retweets": 806,
+                  "views": "1000595"
+                }
+              },
+              {
+                "title": "RT @GMA: One of Kim Kardashian’s favorite things to do on set of “All’s Fair?” Eat the prop food, her co-stars say. http",
+                "summary": "RT @GMA: One of Kim Kardashian’s favorite things to do on set of “All’s Fair?” Eat the prop food, her co-stars say. https://t.co/icJgARlBRa",
+                "url": "https://x.com/KimKardashian/status/2118052540579197312",
+                "source": "@KimKardashian",
+                "date": "Wed Nov 04 18:47:31 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 51,
+                  "views": "18186"
+                }
+              },
+              {
+                "title": "GOOD MORNING AMERICA https://t.co/okQt85ijKs",
+                "summary": "GOOD MORNING AMERICA https://t.co/okQt85ijKs",
+                "url": "https://x.com/KimKardashian/status/2117973839669846230",
+                "source": "@KimKardashian",
+                "date": "Wed Nov 04 13:34:48 +0000 2026",
+                "metrics": {
+                  "favorites": 76788,
+                  "retweets": 3698,
+                  "views": "20760594"
+                }
+              },
+              {
+                "title": "ALL’S FAIR NYC https://t.co/ICqYTb61Cg",
+                "summary": "ALL’S FAIR NYC https://t.co/ICqYTb61Cg",
+                "url": "https://x.com/KimKardashian/status/2117445084748582980",
+                "source": "@KimKardashian",
+                "date": "Tue Nov 03 02:33:43 +0000 2026",
+                "metrics": {
+                  "favorites": 54088,
+                  "retweets": 3335,
+                  "views": "2537829"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_news_lookup_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "lookup_args_news_week",
+        "difficulty": "easy",
+        "what_it_tests": "Model phải tự động bỏ dấu '@' ở handle (@KimKardashian -> KimKardashian) và giữ đúng limit=5."
+      },
+      "input": "Tìm tin tức trong tuần này về Jensen Huang ngoại tình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Jensen Huang ngoại tình",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "timeframe": "week",
+              "query": "Jensen Huang ngoại tình",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "timeframe": "week",
+            "query": "Jensen Huang ngoại tình",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Jensen Huang ngoại tình",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Nvidia mở cuộc điều tra sau khi Jensen Huang thừa nhận ngoại tình - Báo VnExpress",
+                "url": "https://vnexpress.net/ceo-nvidia-thua-nhan-khong-chung-thuy-voi-vo-5142241.html",
+                "source": "vnexpress.net",
+                "summary": "Nvidia cho biết đang điều tra khả năng CEO Jensen Huang trở thành mục tiêu của một chiến dịch tình báo nước ngoài, sau khi ông thừa nhận không chung thủy với vợ.\n\nNgày 8/11, theo Reuters, trong thông điệp gửi nhn viên, ông Huang nói đã ngoại tình và tuyên bố \"nhận hoàn toàn trách nhiệm\" về hành động của mình. \"Hành động của tôi làm tổn thương vợ và các con. Không có lý do nào có thể biện minh cho những gì tôi đã làm. Tôi vô cùng xin lỗi\", ông nói. [...] Jensen Huang đi cùng Alice Huang tại một nhà hàng ở Đài Bắc năm 2025. Ảnh: Sunday Times\n\n \n\nThông tin bắt đầu rộ lên vào tháng 10, khi New York Times cho biết Jensen Huang có mối quan hệ mập mờ với Alice Huang, cựu lãnh đạo Megaspeed, công ty có trụ sở tại Singapore. Đơn vị chuyên mua chip AI của Nvidia này đang bị giới chức Mỹ giám sát do nghi ngờ hỗ trợ Bắc Kinh tiếp cận chip AI tiên tiến vốn bị cấm xuất khẩu sang Trung Quốc. [...] Ông tiếp tục gửi lời tới đồng nghiệp, hội đồng quản trị, đối tác và cổ đông: \"Trách nhiệm của tôi là phụng sự các bạn và xứng đáng với niềm tin các bạn dành cho tôi. Tôi đã không làm tròn trách nhiệm đó. Tôi sẽ nỗ lực lấy lại niềm tin của mọi người\".\n\nNvidia khẳng định CEO cam kết tiếp tục điều hành công ty mà không bị gián đoạn.\n\nJensen Huang đi cùng Alice Huang tại một nhà hàng ở Đài Bắc năm 2025. Ảnh: Sunday Times",
+                "score": 0.8674071
+              },
+              {
+                "title": "Tỷ phú Jensen Huang thừa nhận ngoại tình, Nvidia điều tra nghi vấn gián điệp",
+                "url": "https://tienphong.vn/ty-phu-jensen-huang-thua-nhan-ngoai-tinh-nvidia-dieu-tra-nghi-van-gian-diep-post1892626.tpo",
+                "source": "tienphong.vn",
+                "summary": "Những diễn biến này nhiều khả năng sẽ tạo thêm áp lực lên cổ phiếu của nhà sản xuất chip, trong bối cảnh nhóm cổ phiếu công nghệ vốn đã giảm mạnh do những lo ngại về tính bền vững của lĩnh vực trí tuệ nhn tạo (AI). Sự việc cũng có thể làm dấy lên những cu hỏi về tương lai của ông Huang trên cương vị người đứng đầu công ty mà ông đồng sáng lập. [...] Tháng trước, báo The New York Times đưa tin ông Huang có quan hệ tình cảm với bà Alice Huang - cựu lãnh đạo của Megaspeed, một công ty có trụ sở tại Singapore. Theo bài báo, giới chức Mỹ từng điều tra người phụ nữ này và kết luận bà liên quan đến tình báo Trung Quốc.\n\nCác cơ quan chức năng Mỹ đã giám sát hoạt động của Megaspeed - công ty mua chip AI từ Nvidia, do nghi ngờ doanh nghiệp này hỗ trợ Bắc Kinh tiếp cận các dòng chip AI tiên tiến vốn bị cấm xuất khẩu sang Trung Quốc. [...] “Hội đồng quản trị NVIDIA đang khởi động một cuộc điều tra độc lập trước những thông tin gần đy cho rằng nhà sáng lập kiêm CEO Jensen Huang đã trở thành mục tiêu của một chiến dịch tình báo nước ngoài. Một ủy ban gồm các thành viên hội đồng quản trị độc lập, với sự hỗ trợ của cố vấn pháp lý độc lập bên ngoài, sẽ giám sát cuộc điều tra này”, Nvidia cho biết trong tuyên bố đưa ra ngày 8/11.",
+                "score": 0.8638634
+              },
+              {
+                "title": "Nvidia điều tra cáo buộc CEO Jensen Huang 'ngoại tình' với 'nữ gián điệp Trung Quốc'",
+                "url": "https://www.nguoi-viet.com/hoa-ky/nvidia-dieu-tra-doc-lap-ve-cao-buoc-ceo-jensen-huang-co-quan-he-voi-phu-nu-bi-tinh-nghi-gian-diep-trung-quoc",
+                "source": "nguoi-viet.com",
+                "summary": "Diễn biến này xảy ra sau khi hãng tin Axios hôm Chủ Nhật tường thuật về một bản email dự thảo được cho là do ông Huang gửi nhn viên. Theo bản email mà Reuters đã xem, ông Huang thừa nhận có quan hệ tình cảm với một phụ nữ bị tình nghi là gián điệp Trung Quốc và nhận trách nhiệm về hành động của mình.\n\nTrong email, ông viết: “Tôi đã không chung thủy với vợ. Hành động của tôi làm tổn thương bà ấy và các con. Không có lời bào chữa nào cho việc tôi đã làm.” [...] More\n\n# Nvidia điều tra cáo buộc CEO Jensen Huang ‘ngoại tình’ với ‘nữ gián điệp Trung Quốc’\n\nModified date:\n\nFacebookXEmailPrint\n\nSANTA CLARA, California (NV) – Công ty sản xuất chip trí tuệ nhn tạo hàng đầu thế giới, Nvidia, hôm Chủ Nhật, 8 Tháng Mười Một, loan báo mở cuộc điều tra độc lập sau những tường trình cho rằng Tổng Giám Đốc Jensen Huang (Hoàng Nhn Hun) từng có quan hệ tình cảm với một nữ doanh nhn bị tình báo Hoa Kỳ xác định là người làm việc cho cơ quan gián điệp Trung Quốc. [...] Trước đó, Nvidia từng bác bỏ cách diễn giải rằng quan hệ giữa ông Jensen Huang và nữ doanh nhn này có gì bất thường. Công ty nói rằng CEO của mình thường xuyên tiếp xúc với hàng ngàn lãnh đạo doanh nghiệp và những cuộc gặp với khách hàng là một phần công việc bình thường. Nvidia cũng khẳng định không chia sẻ thông tin mật hoặc bí mật quốc gia với khách hàng.",
+                "score": 0.8619225
+              },
+              {
+                "title": "Jensen Huang bị nghi ngoại tình với 'gián điệp' Trung Quốc, Nvidia điều tra   - BBC News Tiếng Việt",
+                "url": "https://www.bbc.com/vietnamese/articles/c3rrygrj1y8qo",
+                "source": "bbc.com",
+                "summary": "# Jensen Huang bị nghi ngoại tình với 'gián điệp' Trung Quốc, Nvidia điều tra\n\nÔng Jensen Huang \n\nNguồn hình ảnh, Reuters\n\nGã khổng lồ công nghệ Mỹ Nvidia đã mở một cuộc điều tra độc lập sau khi xuất hiện các thông tin cho rằng Giám đốc điều hành Jensen Huang (Hoàng Nhân Huân) có quan hệ tình cảm với một phụ nữ nghi làm gián điệp cho Trung Quốc. [...] Giới chức tình báo Mỹ tin rằng nữ doanh nhân Trung Quốc Alice Huang, người có mối quan hệ thân thiết với Jensen Huang, là một điệp viên làm việc cho Bắc Kinh, New York Times đưa tin.\n\nÔng Jensen Huang tuyên bố \"hoàn toàn chịu trách nhiệm\" về những gì mình đã làm, đồng thời thừa nhận mình đã không hoàn thành trách nhiệm đối với các nhân viên, hội đồng quản trị và cổ đông của Nvidia. [...] Công ty, một trong những doanh nghiệp có giá trị lớn nhất thế giới, cho biết hội đồng quản trị không có lý do để tin rằng bí mật kinh doanh của công ty hoặc an ninh quốc gia đã bị xâm phạm.\n\nNvidia cũng khẳng định ông Jensen Huang vẫn cam kết tiếp tục lãnh đạo công ty.\n\nTrong một diễn biến riêng, ông Jensen Huang thừa nhận đã \"không chung thủy\" với vợ và gửi lời xin lỗi vì đã làm tổn thương bà cùng những người con của họ.",
+                "score": 0.8565368
+              },
+              {
+                "title": "CEO Jensen Huang ngoại tình: NVIDIA ảnh hưởng ra sao?",
+                "url": "https://vietnamnet.vn/ceo-jensen-huang-ngoai-tinh-nvidia-anh-huong-ra-sao-2572924.html",
+                "source": "vietnamnet.vn",
+                "summary": "CEO NVIDIA Jensen Huang công khai thừa nhận không chung thủy với vợ, sau khi thông tin đời tư xuất hiện trên truyền thông. Cổ phiếu NVIDIA chao đảo sau thông tin chấn động này.\n\n## Cổ phiếu NVIDIA chao đảo sau bê bối của CEO\n\nJensen Huang, CEO kiêm đồng sáng lập NVIDIA, đã gửi lời xin lỗi gia đình và thừa nhận không chung thủy với vợ trong thông điệp nội bộ gửi nhn viên hôm Chủ nhật.",
+                "score": 0.7942736
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_social_top_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "social_search_type_top",
+        "difficulty": "medium",
+        "what_it_tests": "'Nổi bật nhất' phải được ánh xạ sang search_type='Top' thay vì Lastest mặc định."
+      },
+      "input": "Tìm kiếm các bài nổi bật nhất trên mạng xã hội về Muse AI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Muse AI",
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top",
+              "query": "Muse AI"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Top",
+            "query": "Muse AI"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "Muse AI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "I have moved everything from OpenClaw, Hermes and Muse to just Grok Bot now. ",
+                "summary": "I have moved everything from OpenClaw, Hermes and Muse to just Grok Bot now. \n\nMuse had a moment for a while. But Grok @bot is coming out as a clear winner for personal agents (UI/UX/features - everything on point). \n\nAnd the most impressive thing the speed of shipping to keep grok bot relevant.\n\nAmazing work @poteto, @mattyp and team!   https://t.co/l9dAcdlRYK",
+                "url": "https://x.com/Saboo_Shubham_/status/2118055599036588312",
+                "source": "@Saboo_Shubham_",
+                "date": "Wed Nov 04 18:59:41 +0000 2026",
+                "metrics": {
+                  "favorites": 1195,
+                  "retweets": 84,
+                  "views": "2355757"
+                }
+              },
+              {
+                "title": "New Post: Designing an Always-On Agent",
+                "summary": "New Post: Designing an Always-On Agent\n\nHow to build agents like Grok Bot, Muse and Instinct\n\nhttps://t.co/59X8uPFxZC https://t.co/exDIL2Srby",
+                "url": "https://x.com/RubricLabs/status/2118752281600643474",
+                "source": "@RubricLabs",
+                "date": "Fri Nov 06 17:08:03 +0000 2026",
+                "metrics": {
+                  "favorites": 423,
+                  "retweets": 20,
+                  "views": "39261"
+                }
+              },
+              {
+                "title": "google AI pro免费白嫖的方法又出来了，5TB 空间 + Gemini Pro，2 年，一分钱没花，趁还没过期抓紧来薅呀，不知道啥时候就关门了！（纠正一下上一篇能白嫖的16G云服务器不是jio，是pro我眼瞎了没看到，这里就教大家",
+                "summary": "google AI pro免费白嫖的方法又出来了，5TB 空间 + Gemini Pro，2 年，一分钱没花，趁还没过期抓紧来薅呀，不知道啥时候就关门了！（纠正一下上一篇能白嫖的16G云服务器不是jio，是pro我眼瞎了没看到，这里就教大家免费开pro教程）\n1. 浏览器打开，https://t.co/nvn5U3Iieg 点击绿色的Code，有个download zip,下载下来。然后Chrome 浏览器打开开发者模式，加载未打包的扩展，（如图一）选这个解压这个zip好的文件夹,装完右上角就出图标了，点击启用！\n2. 浏览器 https://t.co/dkys5FC4GE\n尽量用小号，最好是美区的，点扩展图标，选“第一层·12 个月”，刷新页面，右下角显示“注入已挂载”，就可以了！\n3. 点 AI Pro 卡片的 Get discount\n弹出 Play 结账窗。绑卡，卡里最好留 1 美元过验证，我用的Muse wallet的美元卡丝滑过关，正常来说都能用，朋友用的招商银行万事达借记卡过的，付款前注意一定看清：Pro 那行必须是 $0.00，0 元再点订阅。YouTube 那行要是 11.99，说明你号没资格，多刷新几次或者换个号，可能是号太新了。\n4.再加一年，订完别着急退出。回到扩展切到“6 个月”，刷新，再进页面，点切换到年付，又弹出订购页，上面写 2028 年才付款。再同样叠一个 6 个月，2 年齐了，结束时间 2028 年 11 月。\n注意，订完马上去 Play 取消自动续订。不取消，下个月 YouTube 每月 11.99 美元准时扣你钱，白嫖别变反薅哈哈哈！",
+                "url": "https://x.com/iwishuagain/status/2118759718743142854",
+                "source": "@iwishuagain",
+                "date": "Fri Nov 06 17:37:36 +0000 2026",
+                "metrics": {
+                  "favorites": 314,
+                  "retweets": 36,
+                  "views": "28572"
+                }
+              },
+              {
+                "title": "Introducing Muse, your personal AI agent from Meta that gets things done across every part of life.",
+                "summary": "Introducing Muse, your personal AI agent from Meta that gets things done across every part of life.\n\nDownload the Muse app and get started: https://t.co/KBjYWfshGo https://t.co/1exp56xj93",
+                "url": "https://x.com/Muse/status/2097399178376671666",
+                "source": "@Muse",
+                "date": "Tue Sep 08 18:58:26 +0000 2026",
+                "metrics": {
+                  "favorites": 13357,
+                  "retweets": 1265,
+                  "views": "8156221"
+                }
+              },
+              {
+                "title": "give muse ember a go on opencode",
+                "summary": "give muse ember a go on opencode",
+                "url": "https://x.com/alexandr_wang/status/2119881764156129755",
+                "source": "@alexandr_wang",
+                "date": "Mon Nov 09 19:56:12 +0000 2026",
+                "metrics": {
+                  "favorites": 566,
+                  "retweets": 20,
+                  "views": "29807"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_missing_target_summary",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu tóm tắt nhưng không cung cấp URL/tiêu đề cụ thể -> Bắt buộc gọi clarify để hỏi link."
+      },
+      "input": "Tóm tắt giúp mình nội dung bài viết mới nhất",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn vui lòng cung cấp đường dẫn (URL) hoặc thông tin cụ thể của bài viết bạn muốn tóm tắt nhé.",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn vui lòng cung cấp đường dẫn (URL) hoặc thông tin cụ thể của bài viết bạn muốn tóm tắt nhé.",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn vui lòng cung cấp đường dẫn (URL) hoặc thông tin cụ thể của bài viết bạn muốn tóm tắt nhé.",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_unconfirmed_telegram_post",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "guardrail_confirm_before_send",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động gửi tin (send) có tác động ra ngoài, chưa được confirm -> Phải hỏi xác nhận (clarify yes_no)."
+      },
+      "input": "Bắn ngay bài tóm tắt này lên kênh Telegram cho cộng đồng xem nhé: AI agents đang bùng nổ",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có chắc chắn muốn đăng bài tóm tắt với nội dung \"AI agents đang bùng nổ\" lên kênh Telegram không?",
+              "options": [
+                "Có",
+                "Không"
+              ],
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có chắc chắn muốn đăng bài tóm tắt với nội dung \"AI agents đang bùng nổ\" lên kênh Telegram không?",
+            "options": [
+              "Có",
+              "Không"
+            ],
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có chắc chắn muốn đăng bài tóm tắt với nội dung \"AI agents đang bùng nổ\" lên kênh Telegram không?",
+            "response_type": "yes_no",
+            "options": [
+              "Có",
+              "Không"
+            ],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_out_of_scope_creative_writing",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_refusal",
+        "difficulty": "easy",
+        "what_it_tests": "Sáng tác văn thơ nằm ngoài phạm vi công cụ research -> Không gọi bất kỳ tool nào."
+      },
+      "input": "Viết giúp mình một bài thơ lục bát về tình yêu tuổi học trò",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Gửi bạn bài thơ lục bát về tình yêu tuổi học trò:\n\n**Kỷ Niệm Tuổi Hồng**\n\nNắng hồng nghiêng xuống sân trường,  \nTà áo ai trắng trên đường em đi.  \nNgập ngừng chưa nói điều chi,  \nNụ cười e ấp ước gì chung đôi.  \n\nTan trường nhè nhẹ mây trôi,  \nTình yêu áo trắng bồi hồi tuổi hoa.  \nDù mai năm tháng xa xa,  \nGiữ hoài kỷ niệm đậm đà thiết tha.  \n\nTuổi hồng đẹp tựa bài ca,  \nGóp gom nỗi nhớ xót xa từng giờ.  \nViết vào trang sách câu thơ,  \nGửi theo vạt nắng thẫn thờ vấn vương.  \n\nTiếng ve gọi hạ vương thương,  \nMai này mỗi đứa một phương xa rời.  \nTình yêu thuở ấy bồi hồi,  \nĐọng trong ký ức một thời không phai.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G07_unnecessary_tool_common_calc",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "unnecessary_tool_common_sense",
+        "difficulty": "easy",
+        "what_it_tests": "Kiến thức thường thức đã biết (1 USD = 100 cent) -> Trả lời trực tiếp, không gọi lookup."
+      },
+      "input": "1 USD quy đổi bằng bao nhiêu Cent?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "1 USD (Đô la Mỹ) quy đổi bằng **100 Cent**.",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G08_arxiv_papers_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_arxiv_papers",
+        "difficulty": "medium",
+        "what_it_tests": "Có nhắc đến arXiv/paper nghiên cứu -> Định tuyến vào tool 'papers' thay vì lookup web."
+      },
+      "input": "Tìm 3 bài nghiên cứu khoa học mới nhất trên arXiv về Large Language Model reasoning",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "Large Language Model reasoning",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "sort_by": "submittedDate",
+              "max_results": 3,
+              "query": "Large Language Model reasoning"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "papers",
+          "args": {
+            "sort_by": "submittedDate",
+            "max_results": 3,
+            "query": "Large Language Model reasoning"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "Large Language Model reasoning",
+            "api_query": "all:Large AND all:Language AND all:Model AND all:reasoning",
+            "total_results": 28064,
+            "items": [
+              {
+                "arxiv_id": "2611.12835v1",
+                "title": "Mitigating Agentic Deception via Evaluation-Side Partially Observable Games",
+                "summary": "As large language models become more capable agents, they can exhibit deceptive behaviors, cheating human for higher rewards while appearing helpful. We attribute this failure to evaluation-side partial observability, where models are evaluated mainly from final outcome, without checking the faithfulness of underlying reasoning, tool use, and environmental effects. Prior mitigations address this partial observability by predefined evaluator latent belief space or one-shot monitoring, which do not extend to free-form language space and vulnerable to stronger deceptions that evade simple monitoring. In this work, we formulate deception mitigation as an Evaluation-Side Partially Observable Extensive Form Game (e-PoG), a max-min framework in which an agent maximizes reward, a monitor minimizes the agent's payoff by exposing deception from the full interaction trajectory, and a fixed verifier validates the monitor's claims and converts them into penalties. We define the solution concept as a Subgame-Perfect Oversight Equilibrium (SPOE) between agent and monitor, and prove its existence in finite games. With a perfect verifier, every SPOE is faithful; with an imperfect verifier, the guarantee persists if verifier errors do not reverse the ranking of monitor actions. To achieve faithful SPOE, we derive a two-timescale policy gradient algorithm and enhance the pipeline empirically with NLI verification and deterministic checks. Experiments with Gemma3-4B-IT and Qwen3-4B/8B on Agentic Role-Playing, SearchQA, and WebShop show that e-PoG mitigates multiple emergent deception modes, outperforming the strongest baselines by 26.0% in deception mitigation and by up to 39.8% in task success. These gains persist under weak-to-strong supervision. Code is available at https://github.com/Toyoid/deceptive-agent.",
+                "authors": [
+                  "Hanxiao Li",
+                  "Shutong Liu",
+                  "Yongjia Ma",
+                  "Jiaming Ji",
+                  "Juntao Dai",
+                  "Shuning Zhang",
+                  "Kejian Shi",
+                  "Kai Chen",
+                  "Pu Feng",
+                  "Yuqing Ma",
+                  "Qi Dou",
+                  "Yaodong Yang",
+                  "Xianglong Liu",
+                  "Simin Li"
+                ],
+                "published": "2026-11-09T18:33:13Z",
+                "updated": "2026-11-09T18:33:13Z",
+                "url": "http://arxiv.org/abs/2611.12835v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12835v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12791v1",
+                "title": "Large Language Models as a Universal Searcher for Open-World Automated Machine Learning",
+                "summary": "Developing effective machine learning models requires complex manual tuning, while current Automated Machine Learning (AutoML) frameworks remain domain-specific and isolate model architecture, training hyperparameter, and data ratio optimization. Here, we bridge this gap by proposing a universal, large language model (LLM)-based AutoML framework that jointly optimizes these configurations for the first time without the need for task-specific fine-tuning. We propose NCode, a unified numerical encoding scheme that translates diverse AutoML design choices into universal discrete sequences and effectively reframes the optimization process as a unified ranking task. Trained solely on optimization trajectories derived from a limited, single-domain vision task, the proposed LLM-based searcher demonstrates impressive cross-task, cross-modality and joint search-space optimization generalizability, achieving state-of-the-art performance across image classification, image segmentation, speaker verification and text-to-image benchmarks. Crucially, it exhibits superior scalability in the large-scale training and joint optimization of a billion-parameter Diffusion Transformer, requiring 896 GPU-days and attaining a state-of-the-art GenEval score of 0.91. By leveraging reinforcement learning to instill Chain-of-Thought reasoning, we provide a systematic way to interpret the LLM-based searcher's internal decision-making mechanisms, revealing its optimization strategy shifted from the early-stage diversity-driven exploration to the late-stage anchor exploitation. Our proposed framework provides a scalable, generalizable, and interpretable pathway toward general-purpose open-world machine learning optimization.",
+                "authors": [
+                  "Yuxuan Hu",
+                  "Jihao Liu",
+                  "Weikang Shi",
+                  "Xijie Huang",
+                  "Linda Wei",
+                  "Mingjie Zhan",
+                  "Aojun Zhou",
+                  "Rui Liu",
+                  "Hongsheng Li"
+                ],
+                "published": "2026-11-09T17:58:38Z",
+                "updated": "2026-11-09T17:58:38Z",
+                "url": "http://arxiv.org/abs/2611.12791v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12791v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12763v1",
+                "title": "PORT: Preference Optimization via Robust Token-Level Reweighting",
+                "summary": "Preference optimization has become a central approach for aligning large language models with human values, but its effectiveness depends heavily on the quality of preference annotations. In practice, preference data is often noisy due to annotation errors and ambiguity. Existing robust preference optimization methods primarily operate at the sequence level, implicitly treating entire responses as uniformly correct or incorrect. However, rejected responses may still contain informative reasoning steps, while preferred responses can include subtle errors. In this work, we propose \\textbf{P}reference \\textbf{O}ptimization via \\textbf{R}obust \\textbf{T}oken-level reweighting \\textbf{(PORT)}, a fine-grained framework for robust alignment under noisy preferences. PORT performs token-level reweighting using the empirical cumulative distribution function (CDF) of token log-probabilities, yielding an efficient forward-pass-only proxy to gradient-norm penalization that selectively suppresses corrupted tokens without additional backward-pass computation. We provide theoretical analysis showing that PORT reduces the gradient bias from noisy preference labels by minimizing an upper bound on the bias term. Extensive experiments across diverse noise settings demonstrate that PORT consistently improves robustness and outperforms existing sequence-level baselines. The code is available at https://github.com/osu-srml/PORT",
+                "authors": [
+                  "Ding Zhu",
+                  "Xiukun Wei",
+                  "Tian Xie",
+                  "Zhihui Zhu",
+                  "Xueru Zhang",
+                  "Mohammad Mahdi Khalili"
+                ],
+                "published": "2026-11-09T17:38:16Z",
+                "updated": "2026-11-09T17:38:16Z",
+                "url": "http://arxiv.org/abs/2611.12763v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12763v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "cs.AI"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multiturn_clarify_then_social_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_slot_fill_social",
+        "difficulty": "medium",
+        "what_it_tests": "Sau lượt hỏi làm rõ (clarify), user cung cấp từ khóa -> Gọi đúng social_search với từ khóa đó."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm trên mạng xã hội xem người ta bàn tán gì đi"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn tìm bài đăng mạng xã hội về chủ đề hoặc từ khóa nào?"
+        },
+        {
+          "role": "user",
+          "content": "Về chip Nvidia Blackwell nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Nvidia Blackwell"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Nvidia Blackwell"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Nvidia Blackwell"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "Nvidia Blackwell",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "ช่วงหลายวันมานี้ ชื่อของ อลิซ หวง (Alice Huang) ถูกกล่าวถึงอย่างมากในสื่อต่างประเทศแทบทุกสำนัก เพราะเธอคือ หญิงสาวซึ่ง เ",
+                "summary": "ช่วงหลายวันมานี้ ชื่อของ อลิซ หวง (Alice Huang) ถูกกล่าวถึงอย่างมากในสื่อต่างประเทศแทบทุกสำนัก เพราะเธอคือ หญิงสาวซึ่ง เจนเซน หวง ซีอีโอของ Nvidia บริษัทผู้ผลิตชิปยักษ์ใหญ่ของสหรัฐฯ ออกมายอมรับว่า มีความสัมพันธ์เชิงชู้สาวด้วย และมีรายงานว่า เธอคืออดีตผู้บริหารของบริษัทเมกะสปีด (Megaspeed) ซึ่งเป็นบริษัทผู้ให้บริการด้านคลาวด์ และศูนย์ข้อมูลในสิงคโปร์ ที่เป็นลูกค้ารายใหญ่ของ Nvidia\n.\n“อลิซ หวง” คือใคร?\n.\nข้อมูลที่สื่อในสหรัฐฯ อ้างว่า มาจากหน่วยข่าวกรองของรัฐบาลอเมริกันหลายหน่วย ระบุว่า อลิซ หวง มีชื่อในภาษาจีนกลาง 2 ชื่อ  คือ “หวงเล่อ” และ “หวงเสี่ยวเล่อ” และถึงแม้จะใช้นามสกุลหวง เหมือนกับ เจนเซน หวงแต่ทั้งคู่ ไม่ได้เป็นญาติกัน และไม่ได้เกี่ยวพันกันทางสายเลือด\n.\nที่น่าแปลกใจ คือ ข้อมูลพื้นฐานของ อลิซ หวง เช่น วันเดือนปีเกิด สถานที่เกิด รวมถึงประวัติการศึกษา กลับไม่สามารถตรวจสอบได้ แม้แต่ข้อมูลที่ว่า เธอเคยทำงานเป็นผู้สื่อข่าวให้กับสถานีโทรทัศน์ CCTV และ Hunan TV ประมาณ 4 ปี ก็ไม่สามารถตรวจสอบได้ และผู้บริหารของทีวีทั้งสองช่องก็ออกมาปฏิเสธว่า ไม่เคยได้ยินชื่อของเธอ และไม่เคยเห็นผลงานข่าวที่เธอทำให้กับสถานี      \n.\nนอกจากนั้น ประวัติการทำงานในภาคการเงินที่อ้างว่า เธอเคยเป็นผู้บริหารระดับสูงของสถาบันการเงินชื่อดังอย่าง HSBC และ CITIC Securities  รวมถึงการเป็นผู้จัดการกองทุนของบริษัท Shanghai Hexi Investment Management ก็ไม่สามารถตรวจสอบได้เช่นกัน\n.\nหน่วยข่าวกรองสหรัฐฯ เชื่อว่า อลิซ หวง  ทำงานให้กับกระทรวงความมั่นคงแห่งรัฐของจีน (MSS)  โดยมีภารกิจหลักคือ การเข้าประชิดตัวผู้บริหารระดับสูงของบริษัทเทคโนโลยีระดับสูงหลายรายในสหรัฐฯ ไม่ใช่แค่เจนเซน หวง ซีอีโอของ Nvidia เท่านั้น\n.\nมีรายงานว่า ก่อนหน้านี้  อลิซ หวง เข้าหาผู้บริหารบริษัทด้านเทคโนโลยีปัญญาประดิษฐ์ และบริษัทผู้ผลิตสินค้าไฮเทคในสหรัฐฯและยุโรป 4-5 ราย เพื่อล้วงข้อมูลลับต่างๆส่งให้รัฐบาลจีน\n.\nส่วนจุดเริ่มต้นของการเข้าประชิดตัวและสานสัมพันธ์กับ เจนเซน หวง นั้น ถูกระบุว่า เริ่มต้นขึ้นเมื่อเดือนมิถุนายน ปี 2567   ซึ่งเธอได้พบกับซีอีโอของ Nvidia  ระหว่างร่วมงาน Computex ที่กรุงไทเป ของไต้หวัน นับจากนั้นก็มีผู้พบเห็นอลิซ และเจนเซน อยู่ด้วยกันตามร้านอาหารทั้งในไต้หวัน และสิงคโปร์หลายครั้ง\n.\nเอกสารลับของหน่วยข่าวกรองสหรัฐฯ ระบุว่า เธอยังได้รับคำสั่งให้ใช้ความสัมพันธ์ที่ใกล้ชิดกับเจนเซน ผลักดันให้เขาช่วยล็อบบี้ทางการสหรัฐฯ ให้ “ผ่อนปรน” มาตรการส่งออกชิประดับสูง ที่รัฐบาลสหรัฐฯสั่งห้ามส่งออกไปจีนตั้งแต่ปี 2565   นี่จึงถูกมองว่า เป็นปฏิบัติการใช้เสน่ห์เป็นเหยื่อล่อ\n.\nหลังจากซีอีโอของ Nvidia ออกมายอมรับเรื่องความสัมพันธ์อื้อฉาวครั้งนี้ ทางสถานทูตจีนในกรุงวอชิงตัน ดี.ซี. รวมถึงกระทรวงต่างประเทศจีน รีบออกมาปฏิเสธเสียงแข็งว่าเป็นการป้ายสีทางการเมืองที่พุ่งเป้ามายังรัฐบาลจีน\n.\nส่วนบทบาทของอลิซ หวง ในส่วนที่เกี่ยวข้องกับบริษัท ใน Megaspeed บริษัทผู้ให้บริการดาตาเซ็นเตอร์และระบบคลาวด์ AI ในสิงคโปร์นั้น ข้อมูลจากกระทรวงพาณิชย์ของสิงคโปร์ ยืนยันว่า บริษัทแห่งนี้จดทะเบียนในสิงคโปร์จริง และเป็นบริษัทที่ “แยกตัว” ออกมาจากบริษัทเกมแห่งหนึ่งในจีนเมื่อปี 2566 เพียงไม่กี่เดือนหลังจากรัฐบาลสหรัฐฯ เริ่มบังคับใช้มาตรการห้ามการส่งออกชิปขั้นสูงไปยังจีน\n.\nช่วงปี 2566 บริษัท เมกะสปีดแห่งนี้ มีการสั่งนำเข้าชิปขั้นสูงจาก Nvidia มูลค่ามหาศาลกว่า 4,600 ล้านดอลลาร์สหรัฐฯ โดยเฉพาะชิปรุ่นเรือธงอย่าง Blackwell จนกลายเป็นเป้าหมายการสอบสวนจากรัฐบาลสหรัฐฯ และสิงคโปร์ ในเรื่องการเป็นท่อน้ำเลี้ยงส่งชิปเข้าจีน แม้ทาง Nvidia และ Megaspeed จะยืนยันความโปร่งใส\n.\nหลังจากนั้น ชื่อของ อลิซ หวง ก็ถูกถอดออกจากเอกสารรายชื่อผู้บริหารบริษัท และเธอได้หายตัวไปอย่างไร้ร่องรอย    จนกระทั่งสื่อในสหรัฐฯ ออกมาเปิดเผยเกี่ยวกับข้อกล่าวหาเรื่องการเป็น “สายลับ”\n.\nจนถึงตอนนี้ ยังไม่มีใครตอบได้ว่า อลิซ หวง หายตัวไปไหน ยังมีชีวิตอยู่หรือไม่ รวมถึงยังไม่สามารถยืนยันได้ว่า เธอเป็นสายลับให้รัฐบาลจีนจริง ตามข้อมูลของหน่วยข่าวกรองสหรัฐฯ ขณะที่ตัวเจนเซน หวง กำลังจะเผชิญการสอบสวนอย่างเข้มข้นทั้งจากสภาคองเกรส และสำนักงานสอบสวนกลางสหรัฐฯ (FBI)\n.\n#อลิซหวง\n#onenews\n#สำนักข่าววันนิวส์",
+                "url": "https://x.com/onenews31/status/2120059052164325640",
+                "source": "@onenews31",
+                "date": "Tue Nov 10 07:40:41 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "531"
+                }
+              },
+              {
+                "title": "Imagine being an NVIDIA shareholder.",
+                "summary": "Imagine being an NVIDIA shareholder.\n\nYou studied CUDA, Blackwell, AI demand, earnings...\n\nNobody told you to study Jensen's dating history. 💀",
+                "url": "https://x.com/senodev_/status/2120055892523790438",
+                "source": "@senodev_",
+                "date": "Tue Nov 10 07:28:08 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "8"
+                }
+              },
+              {
+                "title": "NVIDIA: FLUX 3 Image Klein on Blackwell via TensorRT LLM VisualGen. NVFP4 up to 1.62× faster T2I vs BF16 on B200; Base 5",
+                "summary": "NVIDIA: FLUX 3 Image Klein on Blackwell via TensorRT LLM VisualGen. NVFP4 up to 1.62× faster T2I vs BF16 on B200; Base 50-step + distilled 16-step; FP8 attention.\nhttps://t.co/bavAq97IFl",
+                "url": "https://x.com/EhanElahi/status/2120048814883029389",
+                "source": "@EhanElahi",
+                "date": "Tue Nov 10 07:00:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "5"
+                }
+              },
+              {
+                "title": "记者问特朗普什么时候知道黄仁勋的事，他先夸起了 Blackwell。",
+                "summary": "记者问特朗普什么时候知道黄仁勋的事，他先夸起了 Blackwell。\n\n当地时间 11 月 9 日，白宫记者会上，有记者问特朗普，他是什么时候第一次听到有关英伟达 CEO 黄仁勋的消息，当时又听到了什么。\n\n特朗普先说，自己认识黄仁勋很多年，对这件事感到意外。说着说着，聊到了英伟达的市值，还夸 Blackwell 芯片复杂到没法仿制。记者只好再问一遍，什么时候？他说，「不久前。」\n\n后来有记者把时间问到了 5 月访华。特朗普说，那时没听说过。他还说，自己当天和黄仁勋聊过，黄说他不知道那名女子涉嫌从事间谍活动，特朗普表示相信他。\n\n记者再追问，究竟何时知道这份情报，有没有读过相关备忘录？特朗普说「得查一下」，会去问情报人员。可能有人提过，但他印象不深。\n\n打太极就是这样😅\n\n#英伟达 #NVIDIA #黄仁勋 #特朗普 #AI芯片",
+                "url": "https://x.com/ZSS_HK/status/2120037991427326039",
+                "source": "@ZSS_HK",
+                "date": "Tue Nov 10 06:17:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "28"
+                }
+              },
+              {
+                "title": "I tuned a 24 GB Blackwell from 35.04 to 58.53 tok/s on Qwen 27B. The second Qwen exposed why higher power and clocks do ",
+                "summary": "I tuned a 24 GB Blackwell from 35.04 to 58.53 tok/s on Qwen 27B. The second Qwen exposed why higher power and clocks do not produce one best profile.\n#gpu #nvidia...Show more https://t.co/TKmpq4Q6vg",
+                "url": "https://x.com/hackernoon/status/2120034324376347029",
+                "source": "@hackernoon",
+                "date": "Tue Nov 10 06:02:25 +0000 2026",
+                "metrics": {
+                  "favorites": 2,
+                  "retweets": 0,
+                  "views": "328"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_multiturn_switch_from_web_to_twitter",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool_and_handle_mapping",
+        "difficulty": "hard",
+        "what_it_tests": "Chuyển từ web search sang Twitter cá nhân, bỏ tool lookup, đồng thời map Greg Brockman sang handle 'gdb'."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức web về Greg Brockman trong tuần này"
+        },
+        {
+          "role": "user",
+          "content": "Thôi không tìm web nữa, xem trực tiếp các bài đăng gần đây của ông ấy trên Twitter đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "gdb"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 5,
+              "screenname": "gdb"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 5,
+            "screenname": "gdb"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "gdb",
+            "items": [
+              {
+                "title": "integrating with OpenAI can drive a lot of business:",
+                "summary": "integrating with OpenAI can drive a lot of business:",
+                "url": "https://x.com/gdb/status/2119834216787747139",
+                "source": "@gdb",
+                "date": "Mon Nov 09 16:47:16 +0000 2026",
+                "metrics": {
+                  "favorites": 736,
+                  "retweets": 35,
+                  "views": "61249"
+                }
+              },
+              {
+                "title": "frontier models, with lots of test time compute, are becoming the engine of scientific discovery",
+                "summary": "frontier models, with lots of test time compute, are becoming the engine of scientific discovery",
+                "url": "https://x.com/gdb/status/2119561347805687848",
+                "source": "@gdb",
+                "date": "Sun Nov 08 22:42:59 +0000 2026",
+                "metrics": {
+                  "favorites": 7269,
+                  "retweets": 389,
+                  "views": "540783"
+                }
+              },
+              {
+                "title": "security architecture fundamentals are more important than ever before",
+                "summary": "security architecture fundamentals are more important than ever before",
+                "url": "https://x.com/gdb/status/2119179547468005432",
+                "source": "@gdb",
+                "date": "Sat Nov 07 21:25:51 +0000 2026",
+                "metrics": {
+                  "favorites": 2001,
+                  "retweets": 154,
+                  "views": "148345"
+                }
+              },
+              {
+                "title": "dots team is cooking",
+                "summary": "dots team is cooking",
+                "url": "https://x.com/gdb/status/2118753277718528402",
+                "source": "@gdb",
+                "date": "Fri Nov 06 17:12:00 +0000 2026",
+                "metrics": {
+                  "favorites": 989,
+                  "retweets": 33,
+                  "views": "110631"
+                }
+              },
+              {
+                "title": "gpt-6 cyber is a good model",
+                "summary": "gpt-6 cyber is a good model",
+                "url": "https://x.com/gdb/status/2118450138087866586",
+                "source": "@gdb",
+                "date": "Thu Nov 05 21:07:26 +0000 2026",
+                "metrics": {
+                  "favorites": 582,
+                  "retweets": 15,
+                  "views": "68566"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G11_multiturn_correct_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_argument_override",
+        "difficulty": "medium",
+        "what_it_tests": "Kế thừa query='AI' và topic='news', nhưng cập nhật đè timeframe từ 'day' sang 'month'."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI trong ngày hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "Mở rộng khoảng thời gian ra cả tháng này giúp mình"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "timeframe": "month",
+              "topic": "news",
+              "query": "AI"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "timeframe": "month",
+            "topic": "news",
+            "query": "AI"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "A single AI model simulates the behavior of many substances, from sliding sand to folding proteins | MIT News | Massachusetts Institute of Technology",
+                "url": "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109",
+                "source": "news.mit.edu",
+                "summary": "Unified simulation\n\nFor this work, the researchers drew inspiration from world models. These powerful AI systems learn the rules that govern the physical world so they can predict how objects or environments will change over time in response to certain actions or conditions.\n\nThe researchers applied these concepts to develop a unified AI architecture that can simulate multiple types of physical phenomena. [...] ### With a feel for physics, AI models simulate a wider range of real-world scenarios\n\nIllustration shows purple and orange balls, floating and connected like a neural network or like molecules. White molecule figures are also floating against the dark background.\n\n### Learning the language of molecules to predict their properties\n\nBlack molecule icons have red and green additional parts.\n\n### Could LLMs help design our next medicines and materials?\n\n## More MIT News [...] Instead, the researchers designed a neural network that learns to solve governing equations in general, eliminating the need to design a new model and solver to handle each one.\n\nOnce WorldParticle converts an object into particles, a neural network takes the 3D positions and physical properties of the particles as inputs. It outputs their positions and properties for the next frame of the simulation, predicting the material’s motion over time and space in one-second increments.",
+                "score": 0.5199174
+              },
+              {
+                "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise | Microsoft Security Blog",
+                "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise",
+                "source": "microsoft.com",
+                "summary": "Threat actor misuse of AI accelerates risk across enterprise environments by amplifying existing threats such as exploitation of vulnerabilities, phishing, malware threats, and insider activity. To help organizations stay ahead of AI-enabled threat activity, Microsoft has introduced the Security Dashboard for AI. The dashboard provides users with a unified view of AI security posture by aggregating security, identity, and data risk across Microsoft Defender, Microsoft Entra, and Microsoft [...] In October 2026, the financially motivated threat actor Storm-3358 began targeting organizations in the financial sector using the agentic AI offensive framework ARTEX.\n Image of person pointing at code with the AI threats icon superimposed\n\n  14 min read\n\n  ### Threat actors use agentic AI tooling to find and abuse exposed secrets [...] and Microsoft Purview. This allows organizations to understand what AI assets exist in their environment, recognize emerging risk patterns, and prioritize governance and security across AI agents, applications, and platforms. To learn more about the Microsoft Security Dashboard for AI see: Assess your organization’s AI risk with Microsoft Security Dashboard for AI (Preview).",
+                "score": 0.452294
+              },
+              {
+                "title": "AI agent testing reveals a risky future of 'teamwork' inside companies",
+                "url": "https://www.cnbc.com/2026/11/08/ai-agents-risks.html",
+                "source": "cnbc.com",
+                "summary": "Companies may need to decide which agent has authority over which task, what information gets passed between agents, which systems each agent can access and when a human must intervene. They may also need to build mechanisms for disagreement, rather than assuming that more communication or greater agreement will always improve results.\n\nSome business experts say that takes us back to the \"human in the loop\" that is so often referenced as critical in the adoption of AI by organizations. [...] Riedl said these challenge resemble the ones faced by human teams, and one takeaway should be to not expect better outcomes from AI. \"Building good multi-agent AI systems is just as hard as building good human teams: they both face the same information processing tradeoff between alignment and differentiation. It won't magically work better with AI,\" he said. [...] Other early research suggests another failing across AI teams that doesn't relate to ethical boundaries being crossed: failure to recognize who the real expert is.\n\nUnlike human teams, AI teams \"consistently fail to match their expert agent's performance, even when explicitly told who the expert is,\" according to a study conducted by Emory University and Stanford University researchers.",
+                "score": 0.5211513
+              },
+              {
+                "title": "‘AI rebounding’: Nearly 20% of U.S. workers replaced by AI are being asked back | Fortune",
+                "url": "https://fortune.com/2026/11/09/ai-rebounding-20-us-workers-replaced-higher-pay-job-security",
+                "source": "fortune.com",
+                "summary": "“These engineers carry the hard-earned wisdom of decades of design,” a Ford representative previously told Fortune. The company said AI is very important to quality gains, “and that, in tandem with deep technical expertise, is what’s needed.”\n\n## AI layoffs have been looming, but jobs are growing\n\nDespite the rise of AI rebounding, the number of companies that cited AI as a reason for workforce reductions has grown substantially. [...] Similarly, a Robert Half survey from July found that 32% of U.S. hiring managers whose organizations eliminated positions because of AI later had to reinstate the same or similar roles. Among that group, 40% said the positions required institutional knowledge or context that AI couldn’t replace. Another 39% cited relationship management, 39% pointed to increased business demand, and 38% said the positions required more human oversight and quality control than expected. [...] And younger workers are especially vulnerable to AI-led job displacement. A Stanford Digital Economy Lab study found that employment among workers aged 22 to 25 in occupations highly exposed to AI was 19% below where it would have been if it had grown at the same pace as employment among their less-exposed peers.",
+                "score": 0.56040305
+              },
+              {
+                "title": "How AI agents shape experts’ judgment calls \\ Anthropic",
+                "url": "https://www.anthropic.com/research/agents-judgment-calls",
+                "source": "anthropic.com",
+                "summary": "This isn’t a simple cautionary tale against working with AI. Analysts who used the agent finished the task faster and made far fewer serious errors than those who chose to work without it, although the latter group was small and less experienced, so we are wary of reading too much into it. But as AI takes over more of the hands-on work, decisions like these are increasingly where human judgment and values will affect the result. If experts defer to agents without realizing it, the agents’ [...] Deferral of this kind is hard to detect. Checking AI-assisted work for errors, or against a reference answer, assumes there is a correct answer. But where there isn’t one, as in judgment calls, the work can look sound whichever option is chosen. Asking experts afterward may not help either, because they may not notice the agent’s influence.\n\nThis isn’t an argument for using AI less. Used well, AI could expand people’s agency rather than eroding it. We suggest three areas for future study: [...] it, the agents’ preferences—which could be arbitrary or misaligned—could shape important decisions about policy proposals or research directions without anyone having chosen those preferences. This is particularly important for research into keeping AI safe. Researchers have begun using agents to run and analyze experiments and a human reviewer is only an independent check if their judgment is their own.",
+                "score": 0.53509843
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G12_multiturn_confirm_and_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_confirmed_send",
+        "difficulty": "medium",
+        "what_it_tests": "User đã xác nhận 'đồng ý' ở lượt tiếp theo -> Lúc này mới được gọi tool send với confirmed=true."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đăng bản tóm tắt này lên kênh Telegram giúp mình"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?"
+        },
+        {
+          "role": "user",
+          "content": "Đúng rồi, mình đồng ý gửi đi nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Bản tóm tắt",
+              "confirmed": true
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Bản tóm tắt",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "send_telegram",
+            "error": "RuntimeError",
+            "message": "Missing TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G13_multiturn_url_followup_fetch",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_url_fill_fetch",
+        "difficulty": "medium",
+        "what_it_tests": "Bổ sung link URL ở lượt sau -> Kích hoạt fetch chính xác địa chỉ URL đó."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc và tóm tắt bài viết này hộ mình"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn vui lòng gửi đường dẫn (URL) của bài viết nhé."
+        },
+        {
+          "role": "user",
+          "content": "Đây nhé: https://techcrunch.com/2026/ai-breakthrough"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://techcrunch.com/2026/ai-breakthrough"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://techcrunch.com/2026/ai-breakthrough"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://techcrunch.com/2026/ai-breakthrough"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://techcrunch.com/2026/ai-breakthrough",
+            "items": [
+              {
+                "title": "Page not found | TechCrunch",
+                "url": "https://techcrunch.com/2026/ai-breakthrough",
+                "source": "techcrunch.com",
+                "summary": "[Skip to content](https://techcrunch.com/2026/ai-breakthrough#wp--skip-link--target)\n\n# 404\n\n## Page not found\n\nWe’re sorry, we seem to have lost this page\n\n\nSearch\n\n[Back to homepage](https://www.techcrunch.com/)\n\n## Latest News\n\n- ![](https://techcrunch.com/wp-content/uploads/2026/11/bortonia-getty.jpg?w=375)\n\n\n\n[Media & Entertainment](https://techcrunch.com/category/media-entertainment/)\n\n\n\n### [Jensen Huang’s alleged honeypot scandal has inspired some top-notch memes](https://techcrunch.com/2026/11/09/jensen-huangs-alleged-honeypot-scandal-has-inspired-some-top-notch-memes/)\n\n\n\n\n\n  - [Dominic-Madori Davis](https://techcrunch.com/author/dominic-madori-davis/)\n  - [Lucas Ropek](https://techcrunch.com/author/lucas-ropek/)\n\n43 minutes ago\n\n- ![](https://techcrunch.com/wp-content/uploads/2026/11/Dario-Amodei.jpg?w=562)\n\n\n\nIn Brief\n\n\n\n### [Anthropic reportedly plans to move forward with IPO plans](https://techcrunch.com/2026/11/09/anthropic-reportedly-plans-to-move-forward-with-ipo-plans/)\n\n\n\n\n\n  - [Marina Temkin](https://techcrunch.com/author/marina-temkin/)\n\n4 hours ago\n\n- ![Jensen Huang](https://techcrunch.com/wp-content/uploads/2026/11/Jensen-Huang.jpg?w=564)\n\n\n\nIn Brief\n\n\n\n### [Jensen Huang reportedly engaged a PR firm with a history of handling high-profile sex scandals a year ago](https://techcrunch.com/2026/11/09/jensen-huang-reportedly-engaged-a-pr-firm-with-a-history-of-handling-high-profile-sex-scandals-a-year-ago/)\n\n\n\n\n\n  - [Marina Temkin](https://techcrunch.com/author/marina-temkin/)\n\n6 hours ago\n\n- ![A banner displays Wyndham Hotels & Resorts Inc. signage during the company's first day of trading as a spin-off from Wyndham Destinations Inc. in front of the New York Stock Exchange (NYSE).](https://techcrunch.com/wp-content/uploads/2026/11/wyndham-967205948.jpg?w=534)\n\n\n\n[Security](https://techcrunch.com/category/security/)\n\n\n\n### [Hotel giant Wyndham exposed customer data after app security lapse](https://techcrunch.com/2026/11/09/hotel-giant-wyndham-exposed-customer-data-after-app-security-lapse/)\n\n\n\n\n\n  - [Zack Whittaker](https://techcrunch.com/author/zack-whittaker/)\n\n6 hours ago\n\n- ![the NVIDIA booth at the 3rd China International Supply Chain Expo in Beijing, China, on July 20, 2025](https://techcrunch.com/wp-content/uploads/2025/08/GettyImages-2227140868.jpg?w=500)\n\n\n\n[AI](https://techcrunch.com/category/artificial-intelligence/)\n\n\n\n### [A short seller flagged Nvidia CEO’s ties to a suspected Chinese spy six months before the scandal](https://techcrunch.com/2026/11/09/a-short-seller-flagged-nvidia-ceos-ties-to-a-suspected-chinese-spy-six-months-before-the-scandal/)\n\n\n\n\n\n  - [Sarah Perez](https://techcrunch.com/author/sarah-perez/)\n\n7 hours ago\n\n- ![Jensen Huang](https://techcrunch.com/wp-content/uploads/2025/04/GettyImages-2205754389.jpg?w=584)\n\n\n\n[AI](https://techcrunch.com/category/artificial-intelligence/)\n\n\n\n### [The race is on to sue Nvidia](https://techcrunch.com/2026/11/09/the-race-is-on-to-sue-nvidia/)\n\n\n\n\n\n  - [Connie Loizos](https://techcrunch.com/author/connie-loizos/)\n\n7 hours ago\n\n- ![Fervo's drilling rig lit up at night with the moon rising in the background.](https://techcrunch.com/wp-content/uploads/2025/12/fervo-geothermal-site-at-night.jpg?w=668)\n\n\n\n[Climate](https://techcrunch.com/category/climate/)\n\n\n\n### [Fervo now has $12B in orders for its geothermal power tech](https://techcrunch.com/2026/11/09/fervo-now-has-12b-in-orders-for-its-geothermal-power-tech/)\n\n\n\n\n\n  - [Tim De Chant](https://techcrunch.com/author/tim-de-chant/)\n\n8 hours ago\n\n- ![Jensen Huang](https://techcrunch.com/wp-content/uploads/2026/11/Jensen-Huang.jpg?w=564)\n\n\n\nIn Brief\n\n\n\n### [Jensen Huang pulls out of ElevenLabs Summit amid Nvidia controversy](https://techcrunch.com/2026/11/09/jensen-huang-pulls-out-of-elevenlabs-summit-amid-nvidia-controversy/)\n\n\n\n\n\n  - [Ivan Mehta](https://techcrunch.com/author/ivan-mehta/)\n\n9 hours ago\n\n- ![The YouTube logo and lettering](https://techcrunch.com/wp-content/uploads/2026/04/GettyImage"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G14_multiturn_change_account_and_limit",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_replace_entity_and_limit",
+        "difficulty": "medium",
+        "what_it_tests": "Thay thế cả tài khoản đích (Demis Hassabis -> demishassabis) và số lượng limit=10."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 5 tweet gần nhất của Andrej Karpathy"
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang xem 10 tweet của Demis Hassabis xem sao"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "demishassabis",
+              "limit": 10
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "demishassabis",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "demishassabis",
+            "limit": 10
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "demishassabis",
+            "items": [
+              {
+                "title": "RT @sundarpichai: Four distinct TPU systems in a single generation in one year! Instead of waiting years for a tradition",
+                "summary": "RT @sundarpichai: Four distinct TPU systems in a single generation in one year! Instead of waiting years for a traditional semiconductor cy…",
+                "url": "https://x.com/demishassabis/status/2119890726675005913",
+                "source": "@demishassabis",
+                "date": "Mon Nov 09 20:31:49 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 299,
+                  "views": "5158"
+                }
+              },
+              {
+                "title": "RT @AminVahdat: Thrilled to share a big milestone from our AI &amp; Infrastructure team at @Google.",
+                "summary": "RT @AminVahdat: Thrilled to share a big milestone from our AI &amp; Infrastructure team at @Google.\n\nToday we’re expanding our 8th generation T…",
+                "url": "https://x.com/demishassabis/status/2119830093292068877",
+                "source": "@demishassabis",
+                "date": "Mon Nov 09 16:30:53 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 378,
+                  "views": "7097"
+                }
+              },
+              {
+                "title": "RT @pushmeet: Across our projects @GoogleDeepMind, we are witnessing a genuine phase transition in the pace of scientifi",
+                "summary": "RT @pushmeet: Across our projects @GoogleDeepMind, we are witnessing a genuine phase transition in the pace of scientific discovery. You wi…",
+                "url": "https://x.com/demishassabis/status/2119429645732896879",
+                "source": "@demishassabis",
+                "date": "Sun Nov 08 13:59:39 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 778,
+                  "views": "7826"
+                }
+              },
+              {
+                "title": "RT @antigravity: The Antigravity interface has a new look &amp; feel. Many of you have already seen it, so let us know w",
+                "summary": "RT @antigravity: The Antigravity interface has a new look &amp; feel. Many of you have already seen it, so let us know what you think! https://…",
+                "url": "https://x.com/demishassabis/status/2118933653908857058",
+                "source": "@demishassabis",
+                "date": "Sat Nov 07 05:08:45 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 184,
+                  "views": "7433"
+                }
+              },
+              {
+                "title": "RT @pushmeet: The @GoogleDeepMind Science team is sharing two key cryptographic advances today uncovering weaknesses in ",
+                "summary": "RT @pushmeet: The @GoogleDeepMind Science team is sharing two key cryptographic advances today uncovering weaknesses in legacy 1024-bit RSA…",
+                "url": "https://x.com/demishassabis/status/2118862690135277809",
+                "source": "@demishassabis",
+                "date": "Sat Nov 07 00:26:46 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 77,
+                  "views": "7556"
+                }
+              },
+              {
+                "title": "RT @GoogleDeepMind: We’re sharing new research demonstrating how AI agents can accelerate the science of stress-testing ",
+                "summary": "RT @GoogleDeepMind: We’re sharing new research demonstrating how AI agents can accelerate the science of stress-testing encryption.\n\nGuided…",
+                "url": "https://x.com/demishassabis/status/2118774917177000280",
+                "source": "@demishassabis",
+                "date": "Fri Nov 06 18:37:59 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 203,
+                  "views": "5661"
+                }
+              },
+              {
+                "title": "RT @GoogleAI: Meet Gemini Omni 1.2 Flash ⚡️",
+                "summary": "RT @GoogleAI: Meet Gemini Omni 1.2 Flash ⚡️\n\nWe’ve made the model more cost-effective, bumped the video generation and editing limit up to…",
+                "url": "https://x.com/demishassabis/status/2118721330434769346",
+                "source": "@demishassabis",
+                "date": "Fri Nov 06 15:05:03 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 246,
+                  "views": "6976"
+                }
+              },
+              {
+                "title": "RT @_mohansolo: We just redesigned the Antigravity app to be much more sleek and delightful to use! Hope you all enjoy i",
+                "summary": "RT @_mohansolo: We just redesigned the Antigravity app to be much more sleek and delightful to use! Hope you all enjoy it.\n\nMore to come in…",
+                "url": "https://x.com/demishassabis/status/2118504902817169462",
+                "source": "@demishassabis",
+                "date": "Fri Nov 06 00:45:03 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 57,
+                  "views": "7449"
+                }
+              },
+              {
+                "title": "RT @OfficialLoganK: Today we are rolling out Gemini Omni Flash 1.2, with: ",
+                "summary": "RT @OfficialLoganK: Today we are rolling out Gemini Omni Flash 1.2, with: \n\n- longer video generation (15 seconds)\n- deeper cinematic contr…",
+                "url": "https://x.com/demishassabis/status/2118418830670127252",
+                "source": "@demishassabis",
+                "date": "Thu Nov 05 19:03:02 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 156,
+                  "views": "6431"
+                }
+              },
+              {
+                "title": "RT @sean_n_wu: The Collaborative Intelligence Benchmark paper is out!",
+                "summary": "RT @sean_n_wu: The Collaborative Intelligence Benchmark paper is out!\n\nWe tested 18 AI models as teammates on 240 tasks. The best model sco…",
+                "url": "https://x.com/demishassabis/status/2118138200292249908",
+                "source": "@demishassabis",
+                "date": "Thu Nov 05 00:27:54 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 85,
+                  "views": "7460"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G15_multiturn_out_of_scope_pivot",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_out_of_scope_transition",
+        "difficulty": "hard",
+        "what_it_tests": "Đang tra cứu tin tức nhưng rẽ ngang sang hỏi kiến thức lập trình cơ bản -> Không gọi tool tìm kiếm thừa thãi."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức mới nhất về bản phát hành Python 3.14"
+        },
+        {
+          "role": "user",
+          "content": "Sẵn tiện giải thích giúp mình cơ chế Decorator trong Python hoạt động như thế nào?"
+        }
+      ],
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Trong Python, **Decorator** là một thiết kế mẫu (design pattern) cho phép bạn mở rộng hoặc thay đổi hành vi của một hàm (hoặc lớp) mà không cần phải chỉnh sửa trực tiếp mã nguồn của hàm đó.\n\n---\n\n### 1. Nền tảng cốt lõi: First-Class Functions\nĐể hiểu Decorator, bạn cần biết hai đặc điểm quan trọng của hàm trong Python:\n1. **Hàm là \"First-Class Citizen\":** Hàm có thể được gán cho biến, truyền làm tham số cho hàm khác, hoặc trả về từ một hàm khác.\n2. **Hàm lồng nhau (Inner Functions):** Bạn có thể định nghĩa một hàm bên trong một hàm khác.\n\n---\n\n### 2. Bản chất của Decorator\nVề mặt bản chất, một Decorator là một hàm nhận vào tham số là **một hàm khác** và trả về **một hàm mới** đã được bổ sung tính năng.\n\n#### Cú pháp viết theo cách thông thường:\n```python\ndef my_decorator(func):\n    def wrapper():\n        print(\"Trước khi gọi hàm gốc...\")\n        func()\n        print(\"Sau khi gọi hàm gốc...\")\n    return wrapper\n\ndef say_hello():\n    print(\"Xin chào!\")\n\n# Bọc hàm say_hello bằng my_decorator\nsay_hello = my_decorator(say_hello)\n\nsay_hello()\n```\n\n#### Cú pháp viết với kẹo cú pháp `@` (Syntactic Sugar):\nPython cung cấp ký hiệu `@` để viết ngắn gọn hơn. Hai cách viết sau hoàn toàn tương đương:\n\n```python\n@my_decorator\ndef say_hello():\n    print(\"Xin chào!\")\n\nsay_hello()\n```\n\n---\n\n### 3. Các trường hợp sử dụng nâng cao\n\n#### a. Hàm nhận tham số (`*args`, `**kwargs`)\nĐể decorator có thể làm việc với các hàm có tham số đầu vào bất kỳ, hàm `wrapper` bên trong cần sử dụng `*args` và `**kwargs`:\n\n```python\nimport time\n\ndef timer_decorator(func):\n    def wrapper(*args, **kwargs):\n        start_time = time.time()\n        result = func(*args, **kwargs)  # Gọi hàm gốc với các tham số\n        end_time = time.time()\n        print(f\"Hàm {func.__name__} chạy trong: {end_time - start_time:.4f} giây\")\n        return result\n    return wrapper\n\n@timer_decorator\ndef calculate_sum(n):\n    return sum(range(n))\n\nprint(calculate_sum(1000000))\n```\n\n#### b. Giữ nguyên thông tin metadata với `functools.wraps`\nKhi bọc một hàm bằng decorator, tên hàm (`__name__`) và tài liệu hướng dẫn (`__doc__`) của hàm gốc sẽ bị thay thế bởi hàm `wrapper`. Để giữ nguyên metadata này, người ta dùng `@functools.wraps`:\n\n```python\nfrom functools import wraps\n\ndef my_decorator(func):\n    @wraps(func)  # Giữ lại thông tin của hàm func\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs)\n    return wrapper\n```\n\n#### c. Decorator nhận tham số (Decorator Factory)\nNếu muốn truyền tham số vào chính decorator đó, bạn cần tạo thêm một lớp hàm bên ngoài nữa:\n\n```python\ndef repeat(num_times):\n    def decorator_repeat(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            for _ in range(num_times):\n                result = func(*args, **kwargs)\n            return result\n        return wrapper\n    return decorator_repeat\n\n@repeat(num_times=3)\ndef greet(name):\n    print(f\"Xin chào {name}!\")\n\ngreet(\"Alice\")  # In ra \"Xin chào Alice!\" 3 lần\n```\n\n---\n\n### 4. Ứng dụng phổ biến trong thực tế\n- **Logging / Giám sát:** Ghi lại nhật ký khi hàm được gọi.\n- **Xác thực / Phân quyền (Authentication & Authorization):** Kiểm tra người dùng đã đăng nhập hoặc có quyền truy cập trước khi chạy hàm (rất phổ biến trong Flask/Django).\n- **Caching (Bộ nhớ đệm):** Lưu lại kết quả của các tính toán nặng (ví dụ: `@functools.lru_cache`).\n- **Đo thời gian thực thi (Benchmarking):** Đo hiệu năng của hàm.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    }
+  ]
+}
