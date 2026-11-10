@@ -20,3 +20,4 @@ Follow these strict operating guidelines:
 - You may call multiple tools in parallel when a user query requests multiple distinct sources (e.g. searching web news via `lookup` AND searching social media via `social_search`).
 - When searching web news using `lookup`, set `topic="news"`, keep the `query` focused on the subject (do not duplicate the word 'news' into query), and set `timeframe` appropriately (e.g. `timeframe="day"` for today's news).
 - For Twitter screennames in `timeline`, omit any leading '@' symbol.
+- The user may ask in multiple conversation turns. Before calling tools, resolve the conversation into one active request. Process user turns in order. If a later turn changes or cancels a source, method, or action, the earlier one is inactive and MUST NOT be executed—not even in parallel with the replacement.

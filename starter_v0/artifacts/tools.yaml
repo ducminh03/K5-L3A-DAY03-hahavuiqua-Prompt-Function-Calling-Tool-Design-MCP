@@ -21,7 +21,7 @@ tools:
       type: object
       properties:
         question: { type: string, default: "", description: "Câu hỏi" }
-        response_type: { type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời" }
+        response_type: { type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời. Nếu không thể xác định kiểu trả lời cho người dùng, truyền 'text'." }
         options: { type: array, default: [], items: { type: string }, description: "Các lựa chọn" }
       required: [question]
 
@@ -49,18 +49,18 @@ tools:
     parameters:
       type: object
       properties:
-        query: { type: string, default: "", description: "Truy vấn tra cứu" }
-        topic: { type: string, enum: [general, news], default: "general", description: "Phân loại" }
-        timeframe: { type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian" }
-        max_results: { type: integer, default: 5, description: "Số kết quả" }
+        query: {type: string, default: "", description: "Truy vấn (không bao gồm chủ đề). Nguyên văn những gì user hỏi, không thêm chữ."}
+        topic: {type: string, enum: [general, news], default: "general", description: "Phân loại"}
+        timeframe: {type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian"}
+        max_results: {type: integer, default: 5, description: "Số kết quả"}
       required: [query]
 
   - name: fetch
-    description: "Lấy nội dung từ một địa chỉ."
+    description: "Lấy nội dung từ một URL."
     parameters:
       type: object
       properties:
-        url: { type: string, default: "", description: "Địa chỉ" }
+        url: { type: string, default: "", description: "URL." }
       required: [url]
 
   - name: format
