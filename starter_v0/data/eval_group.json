@@ -21,7 +21,7 @@
       "id": "G02_news_lookup_timeframe",
       "phase": "B",
       "suite": "group",
-      "query": "Tìm kiếm các bài báo cáo về Jensen Huang ngoại tình",
+      "query": "Tìm tin tức trong tuần này về Jensen Huang ngoại tình",
       "failure_type": "wrong_arg_value",
       "expect": {
         "tool_calls": [{ "name": "lookup", "args": { "query": "Jensen Huang ngoại tình", "topic": "news", "timeframe": "week" } }]
@@ -36,7 +36,7 @@
       "id": "G03_social_top_search",
       "phase": "B",
       "suite": "group",
-      "query": "Tìm kiếm các bài nổi bật nhất trên mạng về Muse AI",
+      "query": "Tìm kiếm các bài nổi bật nhất trên mạng xã hội về Muse AI",
       "failure_type": "wrong_arg_value",
       "expect": {
         "tool_calls": [{ "name": "social_search", "args": { "query": "Muse AI", "search_type": "Top" } }]

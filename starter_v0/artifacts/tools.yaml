@@ -21,12 +21,18 @@ tools:
       type: object
       properties:
         question: { type: string, default: "", description: "Câu hỏi" }
-        response_type: { type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời. Nếu không thể xác định kiểu trả lời cho người dùng, truyền 'text'." }
+        response_type:
+          {
+            type: string,
+            enum: [text, yes_no, choice],
+            default: "text",
+            description: "Kiểu trả lời. Nếu không thể xác định kiểu trả lời cho người dùng, truyền 'text'.",
+          }
         options: { type: array, default: [], items: { type: string }, description: "Các lựa chọn" }
       required: [question]
 
   - name: timeline
-    description: "Lấy các bài đăng gần đây."
+    description: "Lấy các bài đăng gần đây. Nếu người dùng nhắc tới tên các nhân vật nổi tiếng, hãy tự động ánh xạ sang handle mạng xã hội tương ứng. Tên tài khoản Twitter/X. Tự động ánh xạ tên nhân vật nổi tiếng sang handle chính thức (ví dụ: Sam Altman -> 'sama', Greg Brockman -> 'gdb', Elon Musk -> 'elonmusk', Andrej Karpathy -> 'karpathy'). Không kèm ký tự '@'."
     parameters:
       type: object
       properties:
@@ -49,10 +55,15 @@ tools:
     parameters:
       type: object
       properties:
-        query: {type: string, default: "", description: "Truy vấn (không bao gồm chủ đề). Nguyên văn những gì user hỏi, không thêm chữ."}
-        topic: {type: string, enum: [general, news], default: "general", description: "Phân loại"}
-        timeframe: {type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian"}
-        max_results: {type: integer, default: 5, description: "Số kết quả"}
+        query:
+          {
+            type: string,
+            default: "",
+            description: "Truy vấn (không bao gồm chủ đề). Nguyên văn những gì user hỏi, không thêm chữ. Không tự ý dịch, giải nghĩa, hoặc mở rộng từ viết tắt.",
+          }
+        topic: { type: string, enum: [general, news], default: "general", description: "Phân loại" }
+        timeframe: { type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian" }
+        max_results: { type: integer, default: 5, description: "Số kết quả" }
       required: [query]
 
   - name: fetch
@@ -116,7 +127,12 @@ tools:
       type: object
       properties:
         query: { type: string, default: "", description: "Từ khóa" }
-        max_results: { type: integer, default: 5, description: "Số lượng" }
+        max_results:
+          {
+            type: integer,
+            default: 5,
+            description: "Số lượng bài báo cần lấy. Nếu user yêu cầu số lượng cụ thể (ví dụ '3' bài thì truyền đúng số nhưng limit số bài viết là 10.)",
+          }
         sort_by: { type: string, enum: [relevance, lastUpdatedDate, submittedDate], default: "relevance", description: "Sắp xếp" }
       required: [query]
 
