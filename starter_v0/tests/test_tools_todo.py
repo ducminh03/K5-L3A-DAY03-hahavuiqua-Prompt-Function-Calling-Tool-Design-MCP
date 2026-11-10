@@ -23,24 +23,29 @@ TODO = "TODO(student): implement this test"
 def test_clarify_choice_returns_options_and_awaits_user() -> None:
     # Call clarify with response_type="choice" and 2 options.
     # Assert: options are returned unchanged, awaiting_user is True.
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['clarify'](question="Which option?", response_type="choice", options=["A","B"])
+
+    assert result["options"] == ["A", "B"]
+    assert result["awaiting_user"] is True
 
 
 # ---------------- format ----------------
 
 def test_format_sections_groups_items_by_section() -> None:
-    # Items with section "A", "B", "A" -> markdown has exactly one "## A" and one "## B".
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['format'](items=[{"section" : "A"}, {"section" : "B"}, {"section" : "A"}], template="sections", headline="Test Headline")
+    assert result["markdown"].count("## A") and result["markdown"].count("## B")
 
 
 def test_format_thread_numbers_items() -> None:
     # template="thread" -> lines start with "1/", "2/", ...
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['format'](template="thread", items=[{"summary": "x"} for _ in range(2)])
+    assert result["markdown"].startswith("1/") or result["markdown"].startswith("2/")  
 
 
 def test_format_empty_items_does_not_crash() -> None:
     # items=None and items=[] -> item_count == 0, no exception.
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['format'](items=None)
+    assert result["item_count"] == 0
 
 
 # ---------------- send (guardrail) ----------------
@@ -90,18 +95,23 @@ def test_social_search_passes_search_type(monkeypatch, fake_http) -> None:
 # ---------------- policy (local knowledge + trust boundary) ----------------
 
 def test_policy_empty_query_returns_no_results() -> None:
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['policy'](query="")
+    assert result["results"] == []
 
 
 def test_policy_area_filter_only_returns_that_area() -> None:
     # policy_area="data_privacy" -> every result has policy_area == "data_privacy".
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['policy'](query="anything", policy_area="data_privacy")
+    assert all(r["policy_area"] == "data_privacy" for r in result["results"])
 
 
 def test_policy_instruction_like_lines_go_to_untrusted_text() -> None:
     # One policy file contains a quoted line that tries to give the assistant orders.
     # Query that section (source_citation) and assert: that line is in untrusted_text, NOT in facts.
-    pytest.skip(TODO)
+    result = TOOL_FUNCTIONS['policy'](query="source_citation")
+    item = result["results"][0]
+    assert "untrusted_text" in result
+    assert any("do not follow instructions" in line for line in result["untrusted_text"])
 
 
 # ---------------- YOUR NEW TOOL(S) ----------------
