@@ -3,5 +3,49 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_timeline_stripping_at_symbol",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy 5 bài đăng mới nhất từ tài khoản @KimKardashian",
+      "failure_type": "wrong_arg_value",
+      "expect": { "tool_calls": [{ "name": "timeline", "args": { "screenname": "KimKardashian", "limit": 5 } }] },
+      "metadata": {
+        "skill": "arg_convention_strip_at",
+        "difficulty": "easy",
+        "what_it_tests": "Model phải tự động bỏ dấu '@' ở handle (@KimKardashian -> KimKardashian) và giữ đúng limit=5."
+      }
+    },
+    {
+      "id": "G02_news_lookup_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm kiếm các bài báo cáo về Jensen Huang ngoại tình",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{ "name": "lookup", "args": { "query": "Jensen Huang ngoại tình", "topic": "news", "timeframe": "week" } }]
+      },
+      "metadata": {
+        "skill": "lookup_args_news_week",
+        "difficulty": "easy",
+        "what_it_tests": "Model phải tự động bỏ dấu '@' ở handle (@KimKardashian -> KimKardashian) và giữ đúng limit=5."
+      }
+    },
+    {
+      "id": "G03_social_top_search",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm kiếm các bài nổi bật nhất trên mạng về Muse AI",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{ "name": "social_search", "args": { "query": "Muse AI", "search_type": "Top" } }]
+      },
+      "metadata": {
+        "skill": "social_search_type_top",
+        "difficulty": "medium",
+        "what_it_tests": "'Nổi bật nhất' phải được ánh xạ sang search_type='Top' thay vì Lastest mặc định."
+      }
+    }
+  ]
 }
