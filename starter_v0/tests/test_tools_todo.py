@@ -186,13 +186,87 @@ def test_policy_instruction_like_lines_go_to_untrusted_text() -> None:
 #   2. bad / missing input from the model (empty string, wrong type, out-of-enum value)
 #   3. failure path (missing key, HTTP error, timeout) -> returns error dict, does not raise
 
-def test_my_new_tool_happy_path() -> None:
-    pytest.skip(TODO)
+# ---------------- wiki (team tool) ----------------
+
+wiki_tool = TOOL_FUNCTIONS["wiki"]
+
+WIKI_PAYLOAD = {"query": {"pages": [
+    {"pageid": 2, "index": 2, "title": "GPT-4", "fullurl": "https://vi.wikipedia.org/wiki/GPT-4",
+     "extract": "GPT-4 là mô hình thứ tư. "},
+    {"pageid": 1, "index": 1, "title": "Transformer (học máy)",
+     "fullurl": "https://vi.wikipedia.org/wiki/Transformer_(h%E1%BB%8Dc_m%C3%A1y)",
+     "extract": "Transformer là một kiến trúc học sâu."},
+]}}
 
 
-def test_my_new_tool_bad_input_from_model() -> None:
-    pytest.skip(TODO)
+def test_wiki_sends_search_request_and_maps_best_match(fake_http) -> None:
+    calls = fake_http(FakeResponse(WIKI_PAYLOAD))
+
+    result = wiki_tool(query="Transformer", lang="vi", max_results=2)
+
+    assert len(calls) == 1
+    assert calls[0]["method"] == "GET"
+    assert calls[0]["url"] == "https://vi.wikipedia.org/w/api.php"
+    assert calls[0]["params"]["gsrsearch"] == "Transformer"
+    assert calls[0]["params"]["gsrlimit"] == 2
+    assert calls[0]["params"]["generator"] == "search"
+    assert "User-Agent" in calls[0]["headers"]
+    # pages are re-ordered by search rank ("index"), not API order
+    assert [item["title"] for item in result["items"]] == ["Transformer (học máy)", "GPT-4"]
+    assert result["items"][0] == {
+        "title": "Transformer (học máy)",
+        "url": "https://vi.wikipedia.org/wiki/Transformer_(h%E1%BB%8Dc_m%C3%A1y)",
+        "source": "vi.wikipedia.org",
+        "summary": "Transformer là một kiến trúc học sâu.",
+    }
+    assert result["items"][1]["summary"] == "GPT-4 là mô hình thứ tư."  # stripped
 
 
-def test_my_new_tool_failure_returns_error_dict() -> None:
-    pytest.skip(TODO)
+def test_wiki_empty_query_returns_error_without_network(fake_http) -> None:
+    calls = fake_http(FakeResponse(WIKI_PAYLOAD))
+
+    for bad in ("", "   ", None):
+        result = wiki_tool(query=bad)
+        assert result["tool"] == "wiki"
+        assert result["error"] == "ValueError"
+    assert calls == []
+
+
+def test_wiki_normalizes_bad_lang_and_max_results_from_model(fake_http) -> None:
+    calls = fake_http(FakeResponse(WIKI_PAYLOAD))
+
+    wiki_tool(query="OpenAI", lang="fr", max_results="3")   # out-of-enum lang, numeric string
+    wiki_tool(query="OpenAI", lang="EN", max_results=0)     # upper-case lang, zero
+    wiki_tool(query="OpenAI", lang=None, max_results="abc")  # None lang, garbage
+    wiki_tool(query="OpenAI", max_results=99)               # above cap
+
+    assert calls[0]["url"] == "https://en.wikipedia.org/w/api.php"
+    assert calls[0]["params"]["gsrlimit"] == 3
+    assert calls[1]["url"] == "https://en.wikipedia.org/w/api.php"
+    assert calls[1]["params"]["gsrlimit"] == 1
+    assert calls[2]["url"] == "https://en.wikipedia.org/w/api.php"
+    assert calls[2]["params"]["gsrlimit"] == 1
+    assert calls[3]["url"] == "https://vi.wikipedia.org/w/api.php"
+    assert calls[3]["params"]["gsrlimit"] == 5
+
+
+def test_wiki_no_match_returns_empty_items(fake_http) -> None:
+    fake_http(FakeResponse({"batchcomplete": True}))  # API omits "query" when nothing matches
+
+    result = wiki_tool(query="asdkjhqwe")
+
+    assert result["items"] == []
+    assert "error" not in result
+
+
+def test_wiki_http_error_returns_error_dict(fake_http) -> None:
+    fake_http(FakeResponse(status_code=429))
+    result = wiki_tool(query="OpenAI")
+    assert result == {"tool": "wiki", "error": "HTTPError", "message": "HTTP 429"}
+
+
+def test_wiki_timeout_returns_error_dict(fake_http) -> None:
+    import requests
+    fake_http(requests.Timeout("read timed out"))
+    result = wiki_tool(query="OpenAI")
+    assert result["error"] == "Timeout"
