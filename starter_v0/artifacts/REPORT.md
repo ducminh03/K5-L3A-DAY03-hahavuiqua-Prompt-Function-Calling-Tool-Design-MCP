@@ -6,9 +6,9 @@
 
 ## Team
 
-- Team:
-- Members:
-- Provider/model:
+- Team: hahavuiqua
+- Members: Vũ Đức Minh; Đặng Việt Anh; Lê Xuân Phúc
+- Provider/model: OpenRouter; Gemini; OpenAI
 
 ---
 
@@ -18,7 +18,7 @@
 
 > 1–2 câu mô tả agent dùng để làm gì (cho team khác hiểu nhanh).
 
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL, tổng hợp thành digest, và gửi lên Telegram khi được xác nhận."
+Tôi là trợ lý nghiên cứu hỗ trợ bạn tìm kiếm tin tức, mạng xã hội, trích xuất dữ liệu từ các liên kết và bài báo khoa học một cách chính xác. Bên cạnh đó, tôi có thể giải đáp thắc mắc, phân tích và trình bày thông tin bài viết theo đúng yêu cầu của bạn.
 
 **Link dùng thử (deploy):**
 
@@ -31,10 +31,17 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 > Liệt kê các tool agent đang dùng (gồm tool mới nhóm tự thêm). Mỗi tool 1 dòng: tên + làm được gì.
 
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
-|---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| :--- | :--- | :--- |
+| `lookup` | Tra cứu thông tin và tin tức mới nhất trên Internet | Không |
+| `fetch` | Đọc và lấy nội dung chi tiết từ một đường dẫn URL | Không |
+| `social_search` | Tìm kiếm các bài viết, thảo luận trên mạng xã hội | Không |
+| `timeline` | Xem bài đăng gần nhất từ một tài khoản mạng xã hội cụ thể | Không |
+| `papers` | Tìm kiếm bài báo khoa học (arXiv) theo từ khóa | Không |
+| `paper_text` | Trích xuất nội dung văn bản chi tiết của bài báo khoa học | Không |
+| `policy` | Tìm kiếm tài liệu, chính sách và quy định nội bộ | Không |
+| `format` | Định dạng và tổng hợp dữ liệu thu thập thành bài viết hoàn chỉnh | Không |
+| `send` | Gửi tin nhắn/nội dung đi (yêu cầu người dùng xác nhận trước) | Không |
+| `clarify` | Gửi câu hỏi làm rõ thông tin hoặc xin xác nhận từ người dùng | Không |
 
 ## A3. Câu hỏi mẫu để thử
 
