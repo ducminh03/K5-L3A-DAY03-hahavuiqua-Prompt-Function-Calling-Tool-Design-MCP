@@ -145,3 +145,20 @@ tools:
         max_pages: { type: integer, default: 5, description: "Số trang" }
         max_chars: { type: integer, default: 8000, description: "Số ký tự" }
       required: [arxiv_url]
+
+  # ---------------- Team tools ----------------
+  - name: wiki
+    description: >-
+      Tra Wikipedia: trả về đoạn tóm tắt mở đầu của bài Wikipedia khớp nhất.
+      DÙNG KHI: user hỏi định nghĩa/khái niệm/kiến thức nền ổn định ('X là gì', 'X là ai', 'giải thích khái niệm X',
+      tiểu sử, lịch sử một công ty/công nghệ).
+      KHÔNG DÙNG KHI: user hỏi tin tức, sự kiện mới, 'hôm nay/tuần này' (→ lookup với topic=news);
+      bài đăng trên Twitter/X (→ social_search/timeline); paper học thuật (→ papers); đã có URL (→ fetch);
+      câu hỏi về chính agent (trả lời bằng text, không gọi tool).
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Tên khái niệm/người/tổ chức cốt lõi, không kèm 'là gì', 'là ai'. Vd: 'Transformer là gì?' → 'Transformer'; 'Sam Altman là ai' → 'Sam Altman'."}
+        lang: {type: string, enum: [vi, en], default: "vi", description: "'vi' khi user hỏi bằng tiếng Việt; 'en' khi user hỏi bằng tiếng Anh hoặc yêu cầu Wikipedia tiếng Anh."}
+        max_results: {type: integer, default: 1, description: "Số bài trả về (1-5), mặc định 1."}
+      required: [query]

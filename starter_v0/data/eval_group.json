@@ -298,6 +298,51 @@
         "difficulty": "hard",
         "what_it_tests": "Đang tra cứu tin tức nhưng rẽ ngang sang hỏi kiến thức lập trình cơ bản -> Không gọi tool tìm kiếm thừa thãi."
       }
+    },
+    {
+      "id": "G16_wiki_concept_definition",
+      "phase": "B",
+      "suite": "group",
+      "query": "Retrieval-augmented generation là gì?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wiki",
+            "args": {
+              "lang": "vi"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "route_new_tool_wiki",
+        "difficulty": "medium",
+        "what_it_tests": "Câu hỏi định nghĩa khái niệm ổn định ('X là gì') phải route tới wiki (lang=vi), không phải lookup/papers."
+      }
+    },
+    {
+      "id": "G17_wiki_vs_news_boundary",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tin tức mới nhất về OpenAI hôm nay",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "route_boundary_wiki_lookup",
+        "difficulty": "medium",
+        "what_it_tests": "Có tool wiki nhưng câu hỏi tin tức hôm nay vẫn phải đi lookup(topic=news, timeframe=day), không đi wiki."
+      }
     }
   ]
 }
